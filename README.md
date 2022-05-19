@@ -1,1 +1,1 @@
-# yc-mk8s
+# Create Managed Kubernetes in Yandex Cloud
