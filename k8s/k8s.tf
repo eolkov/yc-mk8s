@@ -6,7 +6,7 @@ resource "yandex_kubernetes_cluster" "zonal_k8s_cluster" {
   network_id = yandex_vpc_network.k8s-mdb-network.id
 
   master {
-    version = "1.18"
+    version = "1.21"
     zonal {
       zone      = yandex_vpc_subnet.k8s-mdb-subnet.zone
       subnet_id = yandex_vpc_subnet.k8s-mdb-subnet.id
@@ -26,7 +26,7 @@ resource "yandex_kubernetes_node_group" "k8s_node_group" {
   cluster_id  = yandex_kubernetes_cluster.zonal_k8s_cluster.id
   name        = "name"
   description = "description"
-  version     = "1.18"
+  version     = "1.21"
 
   labels = {
     "key" = "value"
@@ -68,7 +68,7 @@ resource "yandex_kubernetes_node_group" "k8s_node_group" {
 
   allocation_policy {
     location {
-      zone = "ru-central1-c"
+      zone = "ru-central1-a"
     }
   }
 
