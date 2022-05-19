@@ -3,13 +3,13 @@
 resource "yandex_kubernetes_cluster" "zonal_k8s_cluster" {
   name        = "my-cluster"
   description = "my-cluster description"
-  network_id = yandex_vpc_network.k8s-mdb-network.id
+  network_id = yandex_vpc_network.network-1.id
 
   master {
     version = "1.21"
     zonal {
-      zone      = yandex_vpc_subnet.k8s-mdb-subnet.zone
-      subnet_id = yandex_vpc_subnet.k8s-mdb-subnet.id
+      zone      = ru-central1-a
+      subnet_id = yandex_vpc_subnet.subnet-1.id
     }
     public_ip = true
   }
@@ -37,7 +37,7 @@ resource "yandex_kubernetes_node_group" "k8s_node_group" {
 
     network_interface {
       nat                = true
-      subnet_ids         = [yandex_vpc_subnet.k8s-mdb-subnet.id]
+      subnet_ids         = [yandex_vpc_subnet.subnet-1.id]
     }
 
     resources {
@@ -90,6 +90,16 @@ resource "yandex_kubernetes_node_group" "k8s_node_group" {
   }
 }
 
+resource "yandex_vpc_network" "network-1" {
+  name = "kuber-network"
+}
+
+resource "yandex_vpc_subnet" "subnet-1" {
+  name       = "subnet1"
+  zone       = "ru-central1-a"
+  network_id = "${yandex_vpc_network.network-1.id}"
+  v4_cidr_blocks = ["10.2.0.0/16"]
+}
 
 
 locals {
