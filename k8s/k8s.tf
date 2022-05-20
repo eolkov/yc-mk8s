@@ -8,7 +8,7 @@ resource "yandex_kubernetes_cluster" "zonal_k8s_cluster" {
   master {
     version = "1.21"
     zonal {
-      zone      = ru-central1-a
+      zone      = yandex_vpc_subnet.subnet-1.zone
       subnet_id = yandex_vpc_subnet.subnet-1.id
     }
     public_ip = true
