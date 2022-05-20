@@ -17,6 +17,7 @@ resource "yandex_kubernetes_cluster" "zonal_k8s_cluster" {
   service_account_id      = yandex_iam_service_account.this.id
   node_service_account_id = yandex_iam_service_account.this.id
   release_channel = "STABLE"
+  network_policy_provider = "CALICO"
   depends_on = [yandex_resourcemanager_folder_iam_binding.editor]
 }
 
@@ -41,13 +42,13 @@ resource "yandex_kubernetes_node_group" "k8s_node_group" {
     }
 
     resources {
-      memory = 2
+      memory = 6
       cores  = 2
     }
 
     boot_disk {
       type = "network-hdd"
-      size = 32
+      size = 50
     }
 
     scheduling_policy {
