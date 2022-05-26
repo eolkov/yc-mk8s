@@ -33,6 +33,7 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 30
 ---
+## Create Service (Cluster IP). For public access you need to create Ingress
 apiVersion: v1
 kind: Service
 metadata:
